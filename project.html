@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+    
+  <head>
+	  <title>Object Detection</title>
+    <meta charset="utf-8">
+      
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    	<style type = "text/css">
+			#jumbotron
+			{
+				background-image: url('maxresdefault.jpg'); 
+				height:700px;
+				 background-repeat: no-repeat, repeat;
+				background-size: cover;
+			}
+			#jumbotron_text
+			{
+				color:white;
+				text-align:center;
+				
+				font-size : 30px;
+				float:right;
+			}
+			.sticky {
+			  position: fixed;
+			  top: 0;
+			 z-index : 2;
+			  width: 100%;
+			}
+			
+
+			#yoloCard-text
+			{
+				text-align : left;
+				text-justify: inter-word;
+			}
+			
+			.cardDiv
+			{
+				background-color:#FBFBFC;	
+			}
+			.redBorder
+			{
+				border:1px dotted red;	
+			}
+	  </style>
+ 
+	</head>
+    
+  <body> 
+    <nav class="navbar navbar-toggleable-md navbar-light sticky " style="background-color:#273853;" id="navbar" >
+	 
+		<a class="navbar-brand" href="project.html" style="margin-right : 8%; color:white; "><strong><em>Object Detection</em></strong></a>
+	  
+		<div class="navbar-nav">
+		  <a class="nav-item nav-link active" href="Document.html" style="color : white; margin-right:1%"><strong>Documentation </strong><span class="sr-only">(current)</span></a>
+		  <a class="nav-item nav-link" href="Model.html" style="color : white; margin-right:1%">Models    </a>
+		  <a class="nav-item nav-link" href="photo.html" style="color : white;margin-right:1%">Future Step</a>
+		   <a class="nav-item nav-link " href="research paper.pdf" style="color : white; margin-right:1%" download>Research Paper</a>
+		
+	  </div>
+</nav>
+	
+	  
+			  <div class="jumbotron jumbotron-fluid"  id ="jumbotron">
+				  <div class="container">
+					<h1 class="display-3"></h1>
+					<p class="lead" id ="jumbotron_text">Object detection using YOLO Version 2</p>
+				  </div>
+				</div>
+	  			
+<div class="container">
+	<div class ="row">
+		<div class ="col-sm-4">
+		  <div class="card cardDiv" style="width: 20rem;">
+			  <img class="card-img-top" src="yolo.png" width ="100%" height="200px">
+			  <div class="card-block">
+				<h4 class="card-title">You Only Look Once</h4>
+				<p class="card-text">YOLO stands for You Only Look Once. It’s an object detector that uses features learned by a deep convolutional neural network to detect an object.
+			.There are currently three versions of it- YOLO v1 , YOLO v2 and YOLO v3. YOLOv1 was first introduced in 2015. </p>
+				<a href="Model.html#yolo-text" class="btn btn-primary">YOLO Detail</a>
+		  	  </div>
+		  </div> 
+		</div>
+	 <div class ="col-sm-4">
+		  <div class="card cardDiv" style="width: 20rem;">
+			  <img class="card-img-top" src="fastRCNN.jpg" width ="100%" height="150px">
+			  <div class="card-block">
+				<h4 class="card-title">FAST R-CNN</h4>
+				<p class="card-text">Fast R-CNN Similar to R-CNN, it used Selective Search to generate object proposals, but instead of extracting all of them independently and using SVM 
+					classifiers, it applied the CNN on the complete image and then used both Region of Interest (RoI) Pooling on the feature map with a final feed forward network for classification and regression.</p>
+				<a href="Model.html#fastrcnn-text" class="btn btn-primary" id="">Fast R-CNN Detail</a>
+		   </div>
+		 </div>
+		</div>
+		
+		 <div class ="col-sm-4">
+		  <div class="card cardDiv" style="width: 20rem;">
+			  <img class="card-img-top" src="fasterRCNN.jpg"  width ="100%" height="200px">
+			  <div class="card-block">
+				<h4 class="card-title">Faster R-CNN</h4>
+				<p class="card-text">Faster R-CNN added a Region Proposal Network, in an attempt to get rid of the Selective Search algorithm and make the model completely trainable end-to-end.
+				We won’t go into details on what the RPNs does, but in abstract it has the task to output objects based on an “objectness” score.</p>
+				<a href="Model.html#fasterrcnn-text" class="btn btn-primary">Faster R-CNN Detail</a>
+		   </div>
+		 </div>
+		</div>
+		
+		
+	</div>
+</div>
+		  
+	 <footer  style="height:135px; background-color:#2C3555; color:white;">
+		
+		 <div>
+			 <div class="col-sm-9" style="padding: 10px;">
+				 This project is Machine learning based Object detection using YOLO V2 
+			 </div>
+			<div class ="col-sm-3">
+				<ul style="list-style-type: none; padding:10px">
+					<li>Fast R-CNN</li>
+					<li>Faster R-CNN</li>
+					<li>You Only Look Once</li>
+						
+				</ul>
+			 </div>
+		 </div> 
+		
+
+	  </footer>
+	  
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+     
+        <script>
+			  $(".cardDiv").hover(function(){
+				  $(this).toggleClass("redBorder");
+			  });
+			  
+		   
+			  
+	    </script>
+  </body>
+    
+</html>

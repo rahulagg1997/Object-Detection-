@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+    
+  <head>
+	  <title>Object Detection</title>
+    <meta charset="utf-8">
+      
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    	<style type = "text/css">
+			.sticky {
+			  position: fixed;
+			  top: 0;
+			 z-index : 2;
+			  width: 100%;
+			}
+			#contentBody
+			{
+				position:relative;
+				margin-top:100px;
+			}
+			#contentBody-index
+			{
+				border-right : 1px solid grey;
+				margin : 10px;
+				
+			}
+      .subindex
+        {
+         margin-left :10px; 
+        }
+			body
+			{
+				padding-top:70px;	
+			}
+			.picture
+			{
+				margin:20px;
+				width:500px;
+				height:300px;
+			}
+			.clear
+			{
+				clear:left;	
+			}
+	  </style>
+ 
+	</head>
+    
+  <body>
+    <nav class="navbar navbar-toggleable-md navbar-light sticky " style="background-color:#273853;" id="navbar" >
+	 
+		<a class="navbar-brand" href="project.html" style="margin-right : 8%; color:white; "><strong><em>Object Detection</em></strong></a>
+	  
+		<div class="navbar-nav">
+		  <a class="nav-item nav-link active" href="Document.html" style="color : white; margin-right:1%"><strong>Documentation </strong><span class="sr-only">(current)</span></a>
+		  <a class="nav-item nav-link" href="Model.html" style="color : white; margin-right:1%">Models    </a>
+		  <a class="nav-item nav-link" href="photo.html" style="color : white;margin-right:1%">Future Step</a>
+		   <a class="nav-item nav-link " href="research paper.pdf" style="color : white; margin-right:1%" download>Research Paper</a>
+		
+	  </div>
+</nav>
+	  
+	
+	  <div id="contentBody ">
+		  <div class ="col-sm-2 " id ="contentBody-index">
+			  <a href="#object-text"> <p class ="index toggle" id ="introduction">Introduction</p></a>       
+        <a href="#technology-text"> <p class ="index toggle" id ="technology">Technology</p></a>
+			  <a href="#design-text"> <p class ="index toggle" id="design">Design</p></a>
+			  <a href="#model-text"> <p class ="index toggle" id="model">Model</p></a>
+			  <a> <p class ="index toggle" id="output">Output</p></a>
+			  
+		  </div>
+	  </div>
+		  <div class ="col-sm-9">
+			
+			 <div id="fastrcnn-text" name="fastrcnn-text">
+					  
+            		<h3 style="text-align:center;" id="introduction-text">Introduction</h3>
+					  <h5 id ="object-text"><strong>Object Detection</strong></h5>
+						  Object detection is the process of finding instances of real-world objects such as faces, bicycles, and buildings in images or videos.
+					      Object detection algorithms typically use extracted features and learning algorithms to recognize instances of an object category. 
+					      It is commonly used in applications such as image retrieval, security, surveillance, and advanced driver assistance systems (ADAS).
+					 
+				      <img src="project1.png"  class="picture">
+					  <br>
+				
+			          Object detection is a domain that has benefited immensely from the recent developments in deep learning.
+					  Recent years have seen people develop many algorithms for object detection, some of which include YOLO, SSD, Mask RCNN and RetinaNet.
+					  We are Predicting the class of object as well as a rectangle (called bounding box) containing that object. 
+					  It takes 4 variables to uniquely identify a rectangle. So, for each instance of the object in the image, we shall predict following variables:
+					  <br>
+						1. Bounding box top left x coordinate
+					<br>	
+					    2. Bounding box top left y coordinate,
+						<br>
+					    
+					 	3. Bounding box width,
+					 <br>	
+					  4. Bounding box height
+					  <br>
+					  <strong id ="hog-text"> 1.  Object Detection using Hog Features: </strong><br>
+					  
+					Hog features are computationally inexpensive and are good for many real-world problems. 
+					  On each window obtained from running the sliding window on the pyramid, 
+					  we calculate Hog Features which are fed to an SVM (Support vector machine) to create classifiers.
+					  We were able to run this in real time on videos for pedestrian detection, face detection, and so many other object detection use-cases. 
+					  
+					 <br> <strong id="rcnn-text">2.  R-CNN</strong><br>
+					  
+					Quickly after Over Feat, Regions with CNN features or R-CNN from Ross Girshick, et al. at the UC Berkeley was published which boasted an almost 50% 
+					 improvement on the object detection challenge. What they proposed was a three stage approach:
+					Extract possible objects using a region proposal method (the most popular one being Selective Search).
+					Extract features from each region using a CNN.
+					Classify each region with SVMs.R-CNN Architecture
+					While it achieved great results, the training had lots of problems. 
+				    To train it you first had to generate proposals for the training dataset, apply the CNN feature extraction to every single one
+					(which usually takes over 200GB for the Pascal 2012 train dataset) and then finally train the SVM classifiers.
+					   <img src="project2.jpg"  class="picture">
+					  
+					  <br><strong id="fast-text">3.  Fast R-CNN</strong><br>
+					  
+					This approach quickly evolved into a purer deep learning one, when a year later Ross Girshick (now at Microsoft Research) published Fast R-CNN. Similar to R-CNN, it used Selective Search to generate object proposals, but instead of extracting all of them independently and using SVM classifiers, it applied the CNN on the complete
+					  image and then used both Region of Interest (RoI) Pooling on the feature map with a final feed forward network for classification and regression. Not only was this approach faster, but having the RoI Pooling layer and the fully connected layers allowed the model to be end-to-end differentiable and easier to train. The biggest downside was that the model still relied on Selective Search (or any other region proposal algorithm), which became the bottleneck when using it for inference.5. Faster R-CNN
+					Subsequently, Faster R-CNN authored by Shaoqing Ren (also co-authored by Girshick, now at Facebook Research), the third iteration of the R-CNN series. 
+					  Faster R-CNN added what they called a Region Proposal Network (RPN), in an attempt to get rid of the Selective Search algorithm and make the model completely trainable end-to-end. We won’t go into details on what the RPNs does, but in abstract it has the task to output objects based on an “objectness” score. These objects are used by the RoI Pooling and fully connected layers for classification. We will go into much more detail in a subsequent post where we will discuss the architecture in detail.6. YOLO
+					Shortly after that, You Only Look Once: Unified, Real-Time Object Detection(YOLO) paper published by Joseph Redmon (with Girshick appearing as one of the co-authors). 
+					  YOLO proposed a simple convolutional neural network approach which has both great results and high speed, allowing for the first time real time object detection.
+						<br> <img src="project3.jpg"  class="picture">
+					  <br><strong id="faster-text"> 4.  Faster R-CNN</strong><br>
+						This approach quickly evolved into a purer deep learning one, when a year later Ross Girshick (now at Microsoft Research) published Fast R-CNN. 
+					  Similar to R-CNN, it used Selective Search to generate object proposals, but instead of extracting all of them independently and using SVM classifiers, it applied the CNN on the complete image and then used both Region of Interest (RoI) Pooling on the feature map with a final feed forward network for classification and regression. Not only was this approach faster, but having the RoI Pooling layer and the fully connected layers allowed the model to be end-to-end differentiable and easier to train.
+					  The biggest downside was that the model still relied on Selective Search (or any other region proposal algorithm), 
+					  which became the bottleneck when using it for inference.
+				 		 <br> <img src="project4.jpg"  class="picture">
+			  		
+					  <br><strong id="yolo-text"> 5. YOLO</strong><br>
+					Shortly after that, You Only Look Once: Unified, Real-Time Object Detection(YOLO) paper published by Joseph Redmon (with Girshick appearing as one
+					  of the co-authors). YOLO proposed a simple convolutional neural network approach which has both great results and high speed, 
+					  allowing for the first time real time object detection.
+					  <br> <img src="project5.jpg" style="height:150px;" class="picture"><br>
+					  
+					  
+					 <h3 style="text-align:center;" id="technology-text">Technology</h3>
+				 
+				<br> <strong id="whatyolo-text">What is YOLO?</strong><br>
+					YOLO stands for You Only Look Once. It’s an object detector that uses features learned by a deep convolutional 
+				    neural network to detect an object. Before we get out hands dirty with code, we must understand how YOLO works.
+					There are currently three versions of it- YOLO v1 , YOLO v2 and YOLO v3. YOLOv1 was first introduced in 2015. 
+				 	It was an important work as the model could process images in real-time at 45 frames per second- which was amazing 
+				 	compared to other object detection methods at that time. YOLOv1 performed a lot faster compared to the other methods. 
+				   But, it’s detections suffered by ~10 mAP compared to Faster R-CNN VGG-16. This was one of the motive behind the 2nd version 
+				   of YOLO, which was introduced in late 2016. YOLOv2 outperforms all the other methods in both speed and detection. At 67 FPS, YOLOv2 gets 76.8 mAP.
+ 
+				 <br><strong id="betteryolo-text">Why is it better than YOLOv1 ?</strong><br>
+				YOLO suffers from a variety of shortcomings relative to state-of-the-art detection systems.
+				 Error analysis of YOLO compared to Fast R-CNN shows that YOLO makes a significant number of localization errors.
+				 Furthermore, YOLO has relatively low recall compared to region proposal-based methods. 
+				 Thus we focus mainly on improving recall and localization while maintaining classification accuracy. 
+
+				Computer vision generally trends towards larger, deeper networks.
+				 Better performance often hinges on training larger networks or ensembling multiple models together. 
+				 However, with YOLOv2 we want a more accurate detector that is still fast. Instead of scaling up our network,we 
+				 simplify the network and then make the representation easier to learn. We pool a variety of ideas from past work 
+				 with our own novel concepts to improve YOLO’s performance. 
+
+				 <br><strong id="batch-text">Batch normalization</strong><br>
+				Add batch normalization in convolution layers. This removes the need for dropouts and pushes mAP up 2%.
+				 <br><strong>High-resolution classifier</strong><br>
+				The YOLO training composes of 2 phases. First, we train a classifier network like VGG16. 
+				 Then we replace the fully connected layers with a convolution layer and retrain it end-to-end for the object detection. 
+				 YOLO trains the classifier with 224 × 224 pictures followed by 448 × 448 pictures for the object detection. YOLOv2 starts with 224 × 224 pictures 
+				 for the classifier training but then retune the classifier again with 448 × 448 pictures using much fewer epochs. This makes the detector training 
+				 easier and moves mAP up by 4%.
+				 <br><strong id="anchor-text">Convolutional with Anchor Boxes</strong><br>
+				As indicated in the YOLO paper, the early training is susceptible to unstable gradients. Initially, 
+				 YOHO makes arbitrary guesses on the boundary boxes. These guesses may work well for some objects but badly for others resulting in steep gradient changes. 
+				 In early training, predictions are fighting with each other on what shapes to specialize on.
+			
+			  
+			  <br><strong id="dimension-text">Dimension Clusters</strong><br>
+				In many problem domains, the boundary boxes have strong patterns. For example, in the autonomous driving,
+			  the 2 most common boundary boxes will be cars and pedestrians at different distances. 
+			  To identify the top-K boundary boxes that have the best coverage for the training data, 
+			  we run K-means clustering on the training data to locate the centroids of the top-K clusters.
+	 
+			  <br>
+				 <br>
+				 <hr class="my-4">
+				  <h3 style="text-align:center;" id="design-text">Design</h3>
+
+					Designing phase in the object detection are:
+					Convolutional Neural Networks
+					A convolution layer transforms an input volume into an output volume of different size, as shown below.
+			  		<br> <img src="project5.png"  class="picture"><br>
+					 In this part, you will build every step of the convolution layer. You will first implement two helper functions: one for zero
+					 padding and the other for computing the convolution function itself.
+				 <br> <img src="project6.png"  class="picture"><br>
+				 <strong>Single step of convolution</strong>
+				In this part, implement a single step of convolution, in which you apply the filter to a single position of the input. 
+				 This will be used to build a convolutional unit, which:
+				<br>1. Takes an input volume
+				<br>2. Applies a filter at every position of the input
+				<br>3. Outputs another volume (usually of different size)<br>
+				 In a computer vision application, each value in the matrix on the left corresponds to a single pixel value, and we convolve a 3x3 filter with the image by multiplying its values element-wise with the original matrix, then summing them up and adding a bias. In this first step of the exercise,
+				 you will implement a single step of convolution, corresponding to applying a filter to just one of the positions to get a single real-valued output.
+			 		
+				 <br><strong>Convolutional Neural Networks - Forward pass</strong><br>
+				In the forward pass, you will take many filters and convolve them on the input. Each 'convolution' gives you a 2D matrix output. You will then stack these outputs to get a 3D volume:
+				  <br> <img src="project7.png"  class="picture"><br>
+				 <br><strong>Pooling layer</strong><br>
+				The pooling (POOL) layer reduces the height and width of the input. It helps reduce computation, as well as helps make feature detectors more invariant to its position in the input. The two types of pooling layers are:
+				Max-pooling layer: slides and (f,ff,f) window over the input and stores the max value of the window in the output.
+				Average-pooling layer: slides and (f,ff,f) window over the input and stores the average value of the window in the output
+				 .These pooling layers have no parameters for backpropagation to train. However, 
+				 they have hyperparameters such as the window size ff. This specifies the height and width of the fxf window you would compute a max or average over.
+			    <br> <img src="project8.png"  class="picture"><br>
+				 
+				 <br><strong>	 1. Backpropagation</strong><br>
+				Backpropagation, short for "backward propagation of errors," is an algorithm for supervised learning of artificial neural networks using gradient descent.
+				 Given an artificial neural network and an error function, the method calculates the gradient of the error function with respect to the neural 
+				 network's weights. It is a generalization of the delta rule for perceptrons to multilayer feedforward neural networks.
+					The "backwards" part of the name stems from the fact that calculation of the gradient proceeds backwards through the network, with the gradient of the final
+				 layer of weights being calculated first and the gradient of the first layer of weights being calculated last. Partial computations of the gradient from one layer are reused in the computation of the gradient for the previous layer. This backwards flow of the error information allows for efficient computation of the gradient at each layer versus the naive approach of calculating the gradient of each layer separately.
+				Backpropagation's popularity has experienced a recent resurgence given the widespread adoption of deep neural networks for image recognition and 
+				 speech recognition. It is considered an efficient algorithm, and modern implementations take advantage of specialized GPUs to further improve performance.
+				 <br><strong>2.Transfer Learning</strong><br>
+				 This area of research bears some relation to the long history of psychological literature on transfer of learning, 
+				 although formal ties between the two fields are limited. In 1997, the journal Machine Learning published a special 
+				 issue devoted to transfer learning and by 1998, the field had advanced to include multi-task learning, along with a
+				 more formal analysis of its theoretical foundations. Learning to Learn, edited by Pratt and Sebastian Thrun, is a 
+				 2012 review of the subject.Transfer learning has also been applied in cognitive science, with the journal Connection 
+				 Science publishing a special issue on reuse of neural networks through transfer in 1996.
+				Notably, scientists have developed algorithms for transfer learning in Markov logic networks and Bayesian networks.
+				 Researchers have also applied techniques for transfer to problems in text classification, and spam filtering.
+				 
+				 <br><strong> MODEL DETAILS</strong>
+			<br>First things to know:
+			<br>1. The input is a batch of images of shape (m, 608, 608, 3)
+			<br>2. The output is a list of bounding boxes along with the recognized classes.
+				 Each bounding box is represented by 6 numbers (pc,bx,by,bh,bw,c)(pc,bx,by,bh,bw,c). 
+				 If we expand cc into an 80-dimensional vector, each bounding box is then represented by 85 numbers.
+				
+				 <strong>Pooling layer</strong><br>
+			The pooling (POOL) layer reduces the height and width of the input. It helps reduce computation,
+				 as well as helps make feature detectors more invariant to its position in the input. The two types of pooling layers are:
+			Max-pooling layer: slides and (f,ff,f) window over the input and stores the max value of the window in the output.
+			Average-pooling layer: slides and (f,ff,f) window over the input and stores the average value of the window in the output.
+				  <br> <img src="project11.png"  class="picture"><br>
+				 If the center/midpoint of an object falls into a grid cell, 
+				 that grid cell is responsible for detecting that object.
+				Since we are using 5 anchor boxes, each of the 19 x19 cells 
+				 thus encodes information about 5 boxes. Anchor boxes are defined 
+				 only by their width and height.
+				For simplicity, we will flatten the last two last dimensions 
+				 of the shape (19, 19, 5, 85) encoding. So the output of the
+				 Deep CNN is (19, 19, 425).
+				 <br> <img src="project12.png"  class="picture"><br>
+					Here's one way to visualize what YOLO is predicting on an image:
+					For each of the 19x19 grid cells, find the maximum of the probability scores (taking a max across both the 5 anchor boxes and across different classes).
+					Color that grid cell according to what object that grid cell considers the most likely.
+				<br> <img src="project13.png"  class="picture"><br>
+         <br>
+         <hr class="my-4">
+            <h3 style="text-align:center;" id="model-text">Model</h3>
+                      ____________________________________________________________________________________________________
+            Layer (type)                     Output Shape          Param #     Connected to                     
+            ====================================================================================================
+            input_1 (InputLayer)             (None, 608, 608, 3)   0                                            
+            ____________________________________________________________________________________________________
+            conv2d_1 (Conv2D)                (None, 608, 608, 32)  864         input_1[0][0]                    
+            ____________________________________________________________________________________________________
+            batch_normalization_1 (BatchNorm (None, 608, 608, 32)  128         conv2d_1[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_1 (LeakyReLU)        (None, 608, 608, 32)  0           batch_normalization_1[0][0]      
+            ____________________________________________________________________________________________________
+            max_pooling2d_1 (MaxPooling2D)   (None, 304, 304, 32)  0           leaky_re_lu_1[0][0]              
+            ____________________________________________________________________________________________________
+            conv2d_2 (Conv2D)                (None, 304, 304, 64)  18432       max_pooling2d_1[0][0]            
+            ____________________________________________________________________________________________________
+            batch_normalization_2 (BatchNorm (None, 304, 304, 64)  256         conv2d_2[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_2 (LeakyReLU)        (None, 304, 304, 64)  0           batch_normalization_2[0][0]      
+            ____________________________________________________________________________________________________
+            max_pooling2d_2 (MaxPooling2D)   (None, 152, 152, 64)  0           leaky_re_lu_2[0][0]              
+            ____________________________________________________________________________________________________
+            conv2d_3 (Conv2D)                (None, 152, 152, 128) 73728       max_pooling2d_2[0][0]            
+            ____________________________________________________________________________________________________
+            batch_normalization_3 (BatchNorm (None, 152, 152, 128) 512         conv2d_3[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_3 (LeakyReLU)        (None, 152, 152, 128) 0           batch_normalization_3[0][0]      
+            ____________________________________________________________________________________________________
+            conv2d_4 (Conv2D)                (None, 152, 152, 64)  8192        leaky_re_lu_3[0][0]              
+            ____________________________________________________________________________________________________
+            batch_normalization_4 (BatchNorm (None, 152, 152, 64)  256         conv2d_4[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_4 (LeakyReLU)        (None, 152, 152, 64)  0           batch_normalization_4[0][0]      
+            ____________________________________________________________________________________________________
+            conv2d_5 (Conv2D)                (None, 152, 152, 128) 73728       leaky_re_lu_4[0][0]              
+            ____________________________________________________________________________________________________
+            batch_normalization_5 (BatchNorm (None, 152, 152, 128) 512         conv2d_5[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_5 (LeakyReLU)        (None, 152, 152, 128) 0           batch_normalization_5[0][0]      
+            ____________________________________________________________________________________________________
+            max_pooling2d_3 (MaxPooling2D)   (None, 76, 76, 128)   0           leaky_re_lu_5[0][0]              
+            ____________________________________________________________________________________________________
+            conv2d_6 (Conv2D)                (None, 76, 76, 256)   294912      max_pooling2d_3[0][0]            
+            ____________________________________________________________________________________________________
+            batch_normalization_6 (BatchNorm (None, 76, 76, 256)   1024        conv2d_6[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_6 (LeakyReLU)        (None, 76, 76, 256)   0           batch_normalization_6[0][0]      
+            ____________________________________________________________________________________________________
+            conv2d_7 (Conv2D)                (None, 76, 76, 128)   32768       leaky_re_lu_6[0][0]              
+            ____________________________________________________________________________________________________
+            batch_normalization_7 (BatchNorm (None, 76, 76, 128)   512         conv2d_7[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_7 (LeakyReLU)        (None, 76, 76, 128)   0           batch_normalization_7[0][0]      
+            ____________________________________________________________________________________________________
+            conv2d_8 (Conv2D)                (None, 76, 76, 256)   294912      leaky_re_lu_7[0][0]              
+            ____________________________________________________________________________________________________
+            batch_normalization_8 (BatchNorm (None, 76, 76, 256)   1024        conv2d_8[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_8 (LeakyReLU)        (None, 76, 76, 256)   0           batch_normalization_8[0][0]      
+            ____________________________________________________________________________________________________
+            max_pooling2d_4 (MaxPooling2D)   (None, 38, 38, 256)   0           leaky_re_lu_8[0][0]              
+            ____________________________________________________________________________________________________
+            conv2d_9 (Conv2D)                (None, 38, 38, 512)   1179648     max_pooling2d_4[0][0]            
+            ____________________________________________________________________________________________________
+            batch_normalization_9 (BatchNorm (None, 38, 38, 512)   2048        conv2d_9[0][0]                   
+            ____________________________________________________________________________________________________
+            leaky_re_lu_9 (LeakyReLU)        (None, 38, 38, 512)   0           batch_normalization_9[0][0]      
+            ____________________________________________________________________________________________________
+            conv2d_10 (Conv2D)               (None, 38, 38, 256)   131072      leaky_re_lu_9[0][0]              
+            ____________________________________________________________________________________________________
+            batch_normalization_10 (BatchNor (None, 38, 38, 256)   1024        conv2d_10[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_10 (LeakyReLU)       (None, 38, 38, 256)   0           batch_normalization_10[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_11 (Conv2D)               (None, 38, 38, 512)   1179648     leaky_re_lu_10[0][0]             
+            ____________________________________________________________________________________________________
+            batch_normalization_11 (BatchNor (None, 38, 38, 512)   2048        conv2d_11[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_11 (LeakyReLU)       (None, 38, 38, 512)   0           batch_normalization_11[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_12 (Conv2D)               (None, 38, 38, 256)   131072      leaky_re_lu_11[0][0]             
+            ____________________________________________________________________________________________________
+            batch_normalization_12 (BatchNor (None, 38, 38, 256)   1024        conv2d_12[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_12 (LeakyReLU)       (None, 38, 38, 256)   0           batch_normalization_12[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_13 (Conv2D)               (None, 38, 38, 512)   1179648     leaky_re_lu_12[0][0]             
+            ____________________________________________________________________________________________________
+            batch_normalization_13 (BatchNor (None, 38, 38, 512)   2048        conv2d_13[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_13 (LeakyReLU)       (None, 38, 38, 512)   0           batch_normalization_13[0][0]     
+            ____________________________________________________________________________________________________
+            max_pooling2d_5 (MaxPooling2D)   (None, 19, 19, 512)   0           leaky_re_lu_13[0][0]             
+            ____________________________________________________________________________________________________
+            conv2d_14 (Conv2D)               (None, 19, 19, 1024)  4718592     max_pooling2d_5[0][0]            
+            ____________________________________________________________________________________________________
+            batch_normalization_14 (BatchNor (None, 19, 19, 1024)  4096        conv2d_14[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_14 (LeakyReLU)       (None, 19, 19, 1024)  0           batch_normalization_14[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_15 (Conv2D)               (None, 19, 19, 512)   524288      leaky_re_lu_14[0][0]             
+            ____________________________________________________________________________________________________
+            batch_normalization_15 (BatchNor (None, 19, 19, 512)   2048        conv2d_15[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_15 (LeakyReLU)       (None, 19, 19, 512)   0           batch_normalization_15[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_16 (Conv2D)               (None, 19, 19, 1024)  4718592     leaky_re_lu_15[0][0]             
+            ____________________________________________________________________________________________________
+            batch_normalization_16 (BatchNor (None, 19, 19, 1024)  4096        conv2d_16[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_16 (LeakyReLU)       (None, 19, 19, 1024)  0           batch_normalization_16[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_17 (Conv2D)               (None, 19, 19, 512)   524288      leaky_re_lu_16[0][0]             
+            ____________________________________________________________________________________________________
+            batch_normalization_17 (BatchNor (None, 19, 19, 512)   2048        conv2d_17[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_17 (LeakyReLU)       (None, 19, 19, 512)   0           batch_normalization_17[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_18 (Conv2D)               (None, 19, 19, 1024)  4718592     leaky_re_lu_17[0][0]             
+            ____________________________________________________________________________________________________
+            batch_normalization_18 (BatchNor (None, 19, 19, 1024)  4096        conv2d_18[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_18 (LeakyReLU)       (None, 19, 19, 1024)  0           batch_normalization_18[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_19 (Conv2D)               (None, 19, 19, 1024)  9437184     leaky_re_lu_18[0][0]             
+            ____________________________________________________________________________________________________
+            batch_normalization_19 (BatchNor (None, 19, 19, 1024)  4096        conv2d_19[0][0]                  
+            ____________________________________________________________________________________________________
+            conv2d_21 (Conv2D)               (None, 38, 38, 64)    32768       leaky_re_lu_13[0][0]             
+            ____________________________________________________________________________________________________
+            leaky_re_lu_19 (LeakyReLU)       (None, 19, 19, 1024)  0           batch_normalization_19[0][0]     
+            ____________________________________________________________________________________________________
+            batch_normalization_21 (BatchNor (None, 38, 38, 64)    256         conv2d_21[0][0]                  
+            ____________________________________________________________________________________________________
+            conv2d_20 (Conv2D)               (None, 19, 19, 1024)  9437184     leaky_re_lu_19[0][0]             
+            ____________________________________________________________________________________________________
+            leaky_re_lu_21 (LeakyReLU)       (None, 38, 38, 64)    0           batch_normalization_21[0][0]     
+            ____________________________________________________________________________________________________
+            batch_normalization_20 (BatchNor (None, 19, 19, 1024)  4096        conv2d_20[0][0]                  
+            ____________________________________________________________________________________________________
+            space_to_depth_x2 (Lambda)       (None, 19, 19, 256)   0           leaky_re_lu_21[0][0]             
+            ____________________________________________________________________________________________________
+            leaky_re_lu_20 (LeakyReLU)       (None, 19, 19, 1024)  0           batch_normalization_20[0][0]     
+            ____________________________________________________________________________________________________
+            concatenate_1 (Concatenate)      (None, 19, 19, 1280)  0           space_to_depth_x2[0][0]          
+                                                                               leaky_re_lu_20[0][0]             
+            ____________________________________________________________________________________________________
+            conv2d_22 (Conv2D)               (None, 19, 19, 1024)  11796480    concatenate_1[0][0]              
+            ____________________________________________________________________________________________________
+            batch_normalization_22 (BatchNor (None, 19, 19, 1024)  4096        conv2d_22[0][0]                  
+            ____________________________________________________________________________________________________
+            leaky_re_lu_22 (LeakyReLU)       (None, 19, 19, 1024)  0           batch_normalization_22[0][0]     
+            ____________________________________________________________________________________________________
+            conv2d_23 (Conv2D)               (None, 19, 19, 425)   435625      leaky_re_lu_22[0][0]             
+            ====================================================================================================
+            Total params: 50,983,561
+            Trainable params: 50,962,889
+            Non-trainable params: 20,672
+            ___________________________________________________________________________________________________
+
+            <br>
+         <br><br>
+        
+        </div>
+			  
+	  </div>	  
+			  
+	
+	
+			  
+	  
+		
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+     
+  </body>
+    
+</html>

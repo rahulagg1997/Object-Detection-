@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+    
+  <head>
+	  <title>Object Detection</title>
+    <meta charset="utf-8">
+      
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    	<style type = "text/css">
+		  .Arrangement
+        {
+          
+          height:150px;
+        
+        }
+        .text
+        {
+         padding:50px; 
+        }
+       
+       
+      .hidden
+        {
+          display:none;
+          
+        }
+
+	  </style>
+ 
+	</head>
+    
+  <body>
+ <nav class="navbar navbar-toggleable-md navbar-light sticky " style="background-color:#273853;" id="navbar" >
+	 
+		<a class="navbar-brand" href="project.html" style="margin-right : 8%; color:white; "><strong><em>Object Detection</em></strong></a>
+	  
+		<div class="navbar-nav">
+		  <a class="nav-item nav-link active" href="Document.html" style="color : white; margin-right:1%"><strong>Documentation </strong><span class="sr-only">(current)</span></a>
+		  <a class="nav-item nav-link" href="Model.html" style="color : white; margin-right:1%">Models    </a>
+		  <a class="nav-item nav-link" href="photo.html" style="color : white;margin-right:1%">Future Step</a>
+		   <a class="nav-item nav-link " href="research paper.pdf" style="color : white; margin-right:1%" download>Research Paper</a>
+		
+	  </div>
+</nav>
+	  
+	  <div class=" bg-success Arrangement" id="title">
+      <div class="container ">
+        <h1 class="display-5 text">Future Developments</h1>
+       
+     </div>
+   </div>
+    
+    
+    
+    <div class=" bg-warning Arrangement hovers ">
+      <div class="container">
+        <h2 class="display-5 text" id="video">Object Detection In Videos</h2>
+      
+      </div>
+      </div>
+    
+    <div class ="hidden container" id="video-text">
+      <br>1. Convert video to frames
+     <br> 2. Use any detection algorithm to detect the required objects
+      <br>3. Combine the outputs of every frame
+      <br>4. Combine them into video
+      <br>5. Output the video with the detected objects in the video
+      <br>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/gH5BeOXSw9s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+    </div>
+    
+    
+    
+    
+    <div class="bg-primary Arrangement hovers">
+      <div class="container">
+         <h2 class="display-5 text" id="yolov3">Object Detection Using YOLO v3</h2> 
+    </div>
+      </div>
+    
+      <div  id="yolov3-text" class="hidden container ">
+      YOLO v3: Better, not Faster, Stronger
+       The official title of YOLO v2 paper seemed if YOLO was a milk-based health drink for kids rather than a object detection algorithm. It was named “YOLO9000: Better, Faster, Stronger”.
+      For it’s time YOLO 9000 was the fastest, and also one of the most accurate algorithm. However, a couple of years down the line and it’s no longer the most accurate with algorithms like RetinaNet, and SSD outperforming it in terms of accuracy. It still, however, was one of the fastest.
+      But that speed has been traded off for boosts in accuracy in YOLO v3. While the earlier variant ran on 45 FPS on a Titan X, the current version clocks about 30 FPS. This has to do with the increase in complexity of underlying architecture called Darknet.
+
+    </div>
+    
+    
+    
+    
+    
+      <div class="bg-danger Arrangement hovers ">
+      <div class="container">
+        <h2 class="display-5 text" id="improvement">Increase the model computational requirements</h2>
+       
+     </div>
+       </div>
+    <div id="improvement-text" class="hidden container">
+    Better at detecting smaller objects
+        Detections at different layers helps address the issue of detecting small objects, a frequent complaint with YOLO v2. The upsampled layers concatenated with the previous layers help preserve the fine grained features which help in detecting small objects.
+        The 13 x 13 layer is responsible for detecting large objects, whereas the 52 x 52 layer detects the smaller objects, with the 26 x 26 layer detecting medium objects. Here is a comparative analysis of different objects picked in the same object by different layers.
+        2. Choice of anchor boxes
+        YOLO v3, in total uses 9 anchor boxes. Three for each scale. If you’re training YOLO on your own dataset, you should go about using K-Means clustering to generate 9 anchors.
+        Then, arrange the anchors is descending order of a dimension. Assign the three biggest anchors for the first scale , the next three for the second scale, and the last three for the third.
+        3. More bounding boxes per image
+        For an input image of same size, YOLO v3 predicts more bounding boxes than YOLO v2. For instance, at it’s native resolution of 416 x 416, YOLO v2 predicted 13 x 13 x 5 = 845 boxes. At each grid cell, 5 boxes were detected using 5 anchors.
+        On the other hand YOLO v3 predicts boxes at 3 different scales. For the same image of 416 x 416, the number of predicted boxes are 10,647. This means that YOLO v3 predicts 10x the number of boxes predicted by YOLO v2.You could easily imagine why it’s slower than YOLO v2. At each scale, every grid can predict 3 boxes using 3 anchors. Since there are three scales, the number of anchor boxes used in total are 9, 3 for each scale.
+        4. Changes in Loss Function
+        Earlier, YOLO v2’s loss function looked like this.
+      Better at detecting smaller objects
+        Detections at different layers helps address the issue of detecting small objects, a frequent complaint with YOLO v2. The upsampled layers concatenated with the previous layers help preserve the fine grained features which help in detecting small objects.
+        The 13 x 13 layer is responsible for detecting large objects, whereas the 52 x 52 layer detects the smaller objects, with the 26 x 26 layer detecting medium objects. Here is a comparative analysis of different objects picked in the same object by different layers.
+        2. Choice of anchor boxes
+        YOLO v3, in total uses 9 anchor boxes. Three for each scale. If you’re training YOLO on your own dataset, you should go about using K-Means clustering to generate 9 anchors.
+        Then, arrange the anchors is descending order of a dimension. Assign the three biggest anchors for the first scale , the next three for the second scale, and the last three for the third.
+        3. More bounding boxes per image
+        For an input image of same size, YOLO v3 predicts more bounding boxes than YOLO v2. For instance, at it’s native resolution of 416 x 416, YOLO v2 predicted 13 x 13 x 5 = 845 boxes. At each grid cell, 5 boxes were detected using 5 anchors.
+        On the other hand YOLO v3 predicts boxes at 3 different scales. For the same image of 416 x 416, the number of predicted boxes are 10,647. This means that YOLO v3 predicts 10x the number of boxes predicted by YOLO v2.You could easily imagine why it’s slower than YOLO v2. At each scale, every grid can predict 3 boxes using 3 anchors. Since there are three scales, the number of anchor boxes used in total are 9, 3 for each scale.
+        4. Changes in Loss Function
+        Earlier, YOLO v2’s loss function looked like this.
+
+
+    </div>
+	
+			  
+	  
+		
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+      <script>
+           
+          function video()
+           {
+              $("#video-text").removeClass("hidden");
+             $("#yolov3-text").addClass("hidden");
+             $("#improvement-text").addClass("hidden");
+             
+           }
+           function improvement()
+           {
+            $("#video-text").addClass("hidden");
+             $("#yolov3-text").addClass("hidden");
+             $("#improvement-text").removeClass("hidden");
+           }
+           function yolov3()
+           {
+            $("#video-text").addClass("hidden");
+             $("#yolov3-text").removeClass("hidden");
+             $("#improvement-text").addClass("hidden");
+           }
+          
+            $("#yolov3").click(function(){
+              yolov3();
+
+            });
+             $("#improvement").click(function(){
+              improvement();
+
+            });
+             $("#video").click(function(){
+
+                  video();  	  
+            });
+       
+
+             $("#yolov3").hover(function(){
+                $(this).css("color", "black");
+                }, function(){
+                $(this).css("color", "white");
+            });
+          $("#improvement").hover(function(){
+                $(this).css("color", "black");
+                }, function(){
+                $(this).css("color", "white");
+            });
+          $("#video").hover(function(){
+                $(this).css("color", "black");
+                }, function(){
+                $(this).css("color", "white");
+            });
+           
+
+           
+           
+		  
+	  </script>
+  </body>
+    
+</html>

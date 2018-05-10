@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+    
+  <head>
+	  <title>Object Detection</title>
+    <meta charset="utf-8">
+      
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    	<style type = "text/css">
+			.sticky {
+			  position: fixed;
+			  top: 0;
+			 z-index : 2;
+			  width: 100%;
+			}
+			#contentBody-index
+			{
+				border-right : 1px solid grey;
+				margin : 10px;
+				
+			}
+			#contentBody-textarea
+			{
+				width:100%;
+				height:100%;
+				border:none;
+			}
+			
+			.hidden
+			{
+				display:none;
+			}
+      .modelImg{
+        height:200px;
+        width:200px;
+        float:left;
+        }
+        .clear
+        {
+         clear:left;
+        }
+			 .highlight
+        {
+         color:green; 
+        }
+	  </style>
+ 
+	</head>
+    
+  <body>
+   <nav class="navbar navbar-toggleable-md navbar-light sticky " style="background-color:#273853;" id="navbar" >
+	 
+		<a class="navbar-brand" href="project.html" style="margin-right : 8%; color:white; "><strong><em>Object Detection</em></strong></a>
+	  
+		<div class="navbar-nav">
+		  <a class="nav-item nav-link active" href="Document.html" style="color : white; margin-right:1%"><strong>Documentation </strong><span class="sr-only">(current)</span></a>
+		  <a class="nav-item nav-link" href="Model.html" style="color : white; margin-right:1%">Models    </a>
+		  <a class="nav-item nav-link" href="photo.html" style="color : white;margin-right:1%">Future Step	   <a class="nav-item nav-link " href="research paper.pdf" style="color : white; margin-right:1%" download>Research Paper</a>
+		
+	  </div>
+</nav>
+	<div class="jumbotron ">
+		  <h1 class="display-3">Object Detection Models</h1>
+		  <p class="lead">Object detection is the process of finding instances of real-world objects such as faces, bicycles, and buildings in images or videos. 
+			  Object detection algorithms typically use extracted features and learning algorithms to recognize instances of an object category.
+			 </p>
+		  <hr class="my-4">
+		<p><strong >Application - </strong> Face Detection, People Counting, Vechile Detection, Manufacturing Industry, Online Image</p>
+		 
+	</div>
+	  <div id="contentBody ">
+		  <div class ="col-sm-2 " id ="contentBody-index">
+        <a> <p class ="index " id ="cnn">Convolution Neutral Network</p></a>
+        <a> <p class ="index " id ="rcnn">Regional Convolution Neutral Network</p></a>
+			  <a> <p class ="index " id ="fastrcnn">Fast R-CNN</p></a>
+			  <a> <p class ="index " id ="fasterrcnn">Faster R-CNN</p></a>
+			  <a> <p class ="index " id="yolo">YOLO</p></a>
+			  
+		  </div>
+		  <div class ="col-sm-9">
+			<!--                                                         CNN                                                                                   --> 
+           <div id="cnn-text" class="hidden " name="fastrcnn-text">
+					  
+            <h3>What is convolution Neutral Network?</h3>
+             
+						 CNNs, like neural networks, are made up of neurons with learnable weights and biases. 
+             Each neuron receives several inputs, takes a weighted sum over them, pass it through an activation function and responds with an output.<br>
+             Convolutional networks perceive images as volumes; i.e. three-dimensional objects, rather than flat canvases to be measured only by width and height. 
+             That’s because digital color images have a red-blue-green (RGB) encoding, mixing those three colors to produce the color spectrum humans perceive. 
+             A convolutional network ingests such images as three separate strata of color stacked one on top of the other.
+          So a convolutional network receives a normal color image as a rectangular box whose width and height are measured by the number of pixels along those dimensions,
+             and whose depth is three layers deep, one for each letter in RGB. Those depth layers are referred to as channels.<br><br>
+             
+             <h4>Building Blocks Of CNN</h4>
+             
+             There are three types of layers in a Convolutional Neural Network:<br>
+                1. Convolutional Layers.<br>
+                2. Pooling Layers.<br>
+                3. Fully-Connected Layers.<br><br>
+             
+             <h5><strong>Convolutional Layers</strong></h5>
+             
+					    Convolutional layers are comprised of filters and feature maps.<br>
+              <br><img src="cnnfilter.png" class ="modelImg" class="col-sm-4">
+             <div class="container col-sm-8"> We take the 5*5*3 filter and slide it over the complete image and along the way take the dot product between the filter and chunks of the input image.</div>
+             <div class ="clear"></div>
+             <br><img src="cnndot.png" class ="modelImg" style="width:500px;" class="col-sm-8">
+             <div class="container col-sm-4"> For every dot product taken, the result is a scalar.</div>
+             <div class ="clear"></div><br>
+             <br><img src="cnnfilterResult.png" class ="modelImg" style="width:500px;" class="col-sm-8">
+             <div class="container col-sm-4"> The convolution layer comprises of a set of independent filters (6 in the example shown). 
+               Each filter is independently convolved with the image and we end up with 6 feature maps of shape 28*28*1..</div>
+             <div class ="clear"></div><br><br>
+             
+             <h5><strong>Pooling Layer</strong></h5>
+             
+             Its function is to progressively reduce the spatial size of the representation to reduce the amount of parameters and computation in the network. 
+             Pooling layer operates on each feature map independently.<br><br>
+             The most common approach used in pooling is <span style="color:red;"> max pooling.</span>
+              <br><img src="cnnMaxPooling.png" class ="modelImg" style="width:500px;" class="col-sm-8">
+             <div class ="clear"></div><br><br>
+             
+             <h5><strong>Fully-Connected Layers.</strong></h5>
+             
+              Fully connected layers are the normal flat feed-forward neural network layer.
+              These layers may have a non-linear activation function or a softmax activation in order to output probabilities of class predictions.
+              Fully connected layers are used at the end of the network after feature extraction and consolidation has been performed by the convolutional and pooling layers. 
+             They are used to create final non-linear combinations of features and for making predictions by the network.<br><br><br>
+             
+				  </div>
+        
+        <!--                                                          R-CNN                                                                                   --> 
+        <div id="rcnn-text" class="hidden " name="rcnn-text">
+					  
+            <h3>Understand R-CNN</h3>
+						 The goal of R-CNN is to take in an image, and correctly identify where the main objects (via a bounding box) in the image.
+
+              <br><strong>Inputs: Image</strong>
+              <br><strong>Outputs: Bounding boxes + labels for each object in the image.</strong><br>
+              But how do we find out where these bounding boxes are? R-CNN does what we might intuitively do as well - 
+              propose a bunch of boxes in the image and see if any of them actually correspond to an object.
+             
+             
+             <br><img src="rcnnRegion.png" class ="modelImg" style="width:700px; height:300px;" class="col-sm-8">            
+             <div class ="clear"></div><br>
+              R-CNN creates these bounding boxes, or region proposals, using a process called Selective Search which you can read about here. 
+              At a high level, Selective Search (shown in the image above) looks at the image through windows of different sizes, 
+              and for each size tries to group together adjacent pixels by texture, color, or intensity to identify objects.
+             
+              <br><img src="rcnn.png" class ="modelImg" style="width:700px; height:300px;" class="col-sm-8">            
+             <div class ="clear"></div><br>
+              Once the proposals are created, R-CNN warps the region to a standard square size. On the final layer of the CNN,
+             R-CNN adds a Support Vector Machine (SVM) that simply classifies whether this is an object, and if so what object.<br><br><br>
+             
+				  </div>
+        <!--                                                         FAST R-CNN                                                                                   --> 
+				  
+        <div id="fastrcnn-text" class="hidden " name="fastrcnn-text">
+					  
+            <h3>Fast R-CNN</h3>
+          
+						  Fast R_CNN is Similar to R-CNN,
+              it used <span class="highlight">Selective Search</span> to generate object proposals, but instead of extracting all of them independently and using SVM classifiers, 
+						  it applied the CNN on the complete image and then used both <span class="highlight">Region of Interest (RoI) Pooling</span> on the feature map with a final feed forward network for classification 
+						  and regression. Not only was this approach faster, but having the RoI Pooling layer and the fully connected layers allowed the model to be end-to-end differentiable 
+						  and easier to train. The biggest downside was that the model still relied on Selective Search (or any other region proposal algorithm), 
+						  which became the bottleneck when using it for inference.<br><br>
+             
+           
+          <h4>Region of Interest (RoI) Pooling</h4> 
+          
+            In the forward pass of the CNN for each image, a lot of proposed regions for the image invariably overlapped
+            causing us to run the same CNN computation again and again (~2000 times!). So in fast R-CNN just once per 
+            image andshare that computation across the ~2000 proposals. RoIPool shares the forward pass of a CNN for an image across its subregions. 
+             The CNN features for each region are obtained by selecting a corresponding region from the CNN’s feature map. 
+            Then, the features in each region are pooled (usually using max pooling). So all it takes us is one pass of the original image as opposed to ~2000!<br>
+					
+          <br> <h4>Combine All Models into One Network</h4> 
+          
+            Fast R-CNN is to jointly train the CNN, classifier, and bounding box regressor in a single model. 
+            Where earlier we had different models to extract image features (CNN), classify (SVM), and tighten bounding boxes (regressor), 
+            Fast R-CNN instead used a single network to compute all three.
+            <br><img src="fastrcnn.png" class ="modelImg" style="width:700px; height:300px;" class="col-sm-8">            
+             <div class ="clear"></div><br>
+
+            You can see how this was done in the image above. Fast R-CNN replaced the SVM classifier with a softmax layer on top of the CNN to output a classification. It also added a linear regression layer parallel to the softmax layer to output bounding box coordinates. In this way, all the outputs needed came from one single network! Here are the inputs and outputs to this overall model:
+
+            <br><strong>Inputs: Images with region proposals.</strong>
+            <br><strong>Outputs: Object classifications of each region along with tighter bounding boxes.</strong><br><br><br>
+				  </div>
+				  
+			  			
+          
+           <!--                                                         FASTER R-CNN                                                                                   --> 
+            <div id="fasterrcnn-text" class="hidden " name="fasterrcnn-text">
+            
+            <h3>Faster R-CNN</h3>
+              
+							Faster R-CNN has two networks: region proposal network (RPN) for generating region proposals and a network using these proposals to detect objects. 
+            The main different here with Fast R-CNN is that the later uses selective search to generate region proposals.
+            The time cost of generating region proposals is much smaller in RPN than selective search, when RPN shares the most computation with the object detection network. 
+            Briefly, RPN ranks region boxes (called anchors) and proposes the ones most likely containing objects.
+					
+              <br><br><h4>Working of Faster R-CNN</h4>
+              
+            <br><img src="fasterRCNNArticheture.jpeg" class ="modelImg" style="width:700px; height:800px;" class="col-sm-8">            
+             <div class ="clear"></div><br>
+            
+              <br><br>  <h4>Anchor Box</h4>
+              
+            Anchors play an important role in Faster R-CNN. An anchor is a box. In the default configuration of Faster R-CNN, there are 9 anchors at a position of an image.
+             
+              <br><br>  <h4>Region Proposal Network</h4>
+              
+            The output of a region proposal network (RPN) is a bunch of boxes/proposals that will be examined by a classifier and regressor to eventually 
+            check the occurrence of objects. To be more precise, <span class="highlight">RPN predicts the possibility of an anchor being background or foreground, and refine the anchor.</span>
+            
+              <br><br> <h4>ROI Pooling</h4>
+              
+            After RPN, we get proposed regions with different sizes. Different sized regions means different sized CNN feature maps.
+            It’s not easy to make an efficient structure to work on features with different sizes. 
+            Region of Interest Pooling can simplify the problem by reducing the feature maps into the same size.
+            Unlike Max-Pooling which has a fix size, ROI Pooling splits the input feature map into a fixed number (let’s say k) of roughly equal regions, 
+            and then apply Max-Pooling on every region. Therefore the output of ROI Pooling is always k regardless the size of input. 
+            Here is a good explanation about ROI Pooling.
+            <br><br>
+			  	 </div>
+				  <div id="yolo-text" name="yolo-text" >
+			  		
+            <h3> You Only Look Once (YOLO)</h3>
+						 You Only Look Once: Unified, Real-Time Object Detection(YOLO) paper published by Joseph Redmon (with Girshick appearing as one of the co-authors). 
+						YOLO proposed a simple convolutional neural network approach which has both great results and high speed, 
+						allowing for the first time real time object detection.	
+           <br>   <br> <strong>What is YOLO?</strong><br>
+						YOLO stands for You Only Look Once. It’s an object detector that uses features learned by a deep convolutional neural network to detect an object. Before we get out hands dirty with code, we must understand how YOLO works.
+						There are currently three versions of it- YOLO v1 , YOLO v2 and YOLO v3. YOLOv1 was first introduced in 2015. It was an important work as the model could process images in real-time at 45 frames per second- which was amazing compared to other object detection methods at that time.
+						 YOLOv1 performed a lot faster compared to the other methods. But, it’s detections suffered by ~10 mAP compared to Faster R-CNN VGG-16. This was one of the motive behind the 2nd version of YOLO, which was introduced in late 2016. YOLOv2 outperforms all the other methods in both speed and detection. At 67 FPS, YOLOv2 gets 76.8 mAP.
+
+					  <br><br><strong>	Why is it better than YOLOv1 ?</strong><br>
+						YOLO suffers from a variety of shortcomings relative to state-of-the-art detection systems. Error analysis of YOLO compared to Fast R-CNN shows that YOLO makes a significant number of localization errors. Furthermore, YOLO has relatively low recall compared to region proposal-based methods. Thus we focus mainly on improving recall and localization while maintaining classification accuracy. 
+
+						Computer vision generally trends towards larger, deeper networks . Better performance often hinges on training larger networks or ensembling multiple models together. However, with YOLOv2 we want a more accurate detector that is still fast. Instead of scaling up our network, we simplify the network and then make the representation easier to learn. We pool a variety of ideas from past work with our own novel concepts to improve YOLO’s performance. 
+
+             <br> <br>	<strong>Batch normalization</strong><br>
+						Add batch normalization in convolution layers. This removes the need for dropouts and pushes mAP up 2%.
+						<br><br>	<strong>High-resolution classifier<br>	</strong>
+						The YOLO training composes of 2 phases. First, we train a classifier network like VGG16. Then we replace the fully connected layers with a convolution layer and retrain it end-to-end for the object detection. YOLO trains the classifier with 224 × 224 pictures followed by 448 × 448 pictures for the object detection. YOLOv2 starts with 224 × 224 pictures for the classifier training but then retune the classifier again with 448 × 448 pictures using much fewer epochs. This makes the detector training easier and moves mAP up by 4%.
+						Convolutional with Anchor Boxes
+						As indicated in the YOLO paper, the early training is susceptible to unstable gradients. Initially, YOHO makes arbitrary guesses on the boundary boxes. These guesses may work well for some objects but badly for others resulting in steep gradient changes. In early training, predictions are fighting with each other on what shapes to specialize on.
+            <br>  <strong><br>Convolutional with Anchor Boxes<br></strong>
+              As indicated in the YOLO paper, the early training is susceptible to unstable gradients. Initially, YOHO makes arbitrary guesses on the boundary boxes. These guesses may work well for some objects but badly for others resulting in steep gradient changes. In early training, predictions are fighting with each other on what shapes to specialize on.
+              <br><br><strong>Dimension Clusters<br></strong>
+              In many problem domains, the boundary boxes have strong patterns. For example, in the autonomous driving, the 2 most common boundary boxes will be cars and pedestrians at different distances. To identify the top-K boundary boxes that have the best coverage for the training data, we run K-means clustering on the training data to locate the centroids of the top-K clusters.
+            
+            <br><br>
+			  
+			  </div>
+			  
+		  </div>
+	  </div>
+			  
+	  
+		
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+         <script>
+           
+          function fastrcnn()
+           {
+              $("#fastrcnn-text").removeClass("hidden");
+             $("#fasterrcnn-text").addClass("hidden");
+             $("#yolo-text").addClass("hidden");
+             $("#cnn-text").addClass("hidden");
+             $("#rcnn-text").addClass("hidden");
+           }
+           function fasterrcnn()
+           {
+             $("#fastrcnn-text").addClass("hidden");
+		         $("#fasterrcnn-text").removeClass("hidden");
+		         $("#yolo-text").addClass("hidden");
+              $("#cnn-text").addClass("hidden");
+              $("#rcnn-text").addClass("hidden");
+           }
+           function yolo()
+           {
+             $("#fastrcnn-text").addClass("hidden");
+             $("#fasterrcnn-text").addClass("hidden");
+             $("#yolo-text").removeClass("hidden");
+              $("#cnn-text").addClass("hidden");
+              $("#rcnn-text").addClass("hidden");
+           }
+           function cnn()
+           {
+             $("#fastrcnn-text").addClass("hidden");
+             $("#fasterrcnn-text").addClass("hidden");
+             $("#cnn-text").removeClass("hidden");
+             $("#yolo-text").addClass("hidden");
+             $("#rcnn-text").addClass("hidden");
+           }
+            function rcnn()
+           {
+             $("#fastrcnn-text").addClass("hidden");
+             $("#fasterrcnn-text").addClass("hidden");
+             $("#rcnn-text").removeClass("hidden");
+             $("#yolo-text").addClass("hidden");
+             $("#cnn-text").addClass("hidden");
+           }
+            $("#yolo").click(function(){
+              yolo();
+
+            });
+             $("#fastrcnn").click(function(){
+              fastrcnn();
+
+            });
+             $("#fasterrcnn").click(function(){
+
+                  fasterrcnn();  	  
+            });
+           $("#cnn").click(function(){
+
+                  cnn();  	  
+            });
+            $("#rcnn").click(function(){
+
+                  rcnn();  	  
+            });
+
+             $(document).ready(function(){
+                urldecode();
+               $(window).bind("hashchange",urldecode());
+             });
+              
+           function urldecode(){
+                if(window.location.hash=="#fastrcnn-text")
+                        fastrcnn();
+                else if(window.location.hash=="#fasterrcnn-text")
+                        fasterrcnn();
+                else
+                  yolo();
+        }
+           
+		  
+	  </script>
+  </body>
+    
+</html>
